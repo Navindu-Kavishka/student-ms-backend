@@ -41,6 +41,10 @@ public class StudentServiceImpl implements StudentService{
         return allStudents;
     }
 
-
+    @Override
+    public StudentDto getById(Integer id){
+        StudentEntity studentEntity = repository.findById(id).orElse(null);
+        return mapper.convertValue(studentEntity,StudentDto.class);
+    }
 
 }

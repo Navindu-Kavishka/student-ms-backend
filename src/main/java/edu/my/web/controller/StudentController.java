@@ -38,4 +38,11 @@ public class StudentController {
         return service.getAll();
     }
 
+    @GetMapping("/get-by-id/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id){
+        StudentDto studentById = service.getById(id);
+        if (studentById == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(studentById);
+    }
+
 }
