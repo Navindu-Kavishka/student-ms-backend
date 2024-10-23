@@ -11,4 +11,6 @@ public interface StudentService {
     List<StudentDto> getAll();
 
     StudentDto getById(Integer id);
+
+    StudentDto update (Integer id,StudentDto studentDto);
 }

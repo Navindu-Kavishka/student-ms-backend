@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("student")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin
 public class StudentController {
 
     private final StudentService service;
@@ -45,4 +45,10 @@ public class StudentController {
         return ResponseEntity.ok(studentById);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> update (@PathVariable Integer id,@RequestBody StudentDto studentDto){
+        StudentDto updated = service.update(id, studentDto);
+        if (updated == null) ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.ok(updated);
+    }
 }

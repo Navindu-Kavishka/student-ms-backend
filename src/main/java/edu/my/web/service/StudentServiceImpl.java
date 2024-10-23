@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,4 +48,23 @@ public class StudentServiceImpl implements StudentService{
         return mapper.convertValue(studentEntity,StudentDto.class);
     }
 
+    @Override
+    public StudentDto update (Integer id,StudentDto studentDto){
+        Optional<StudentEntity> optionalStudent = repository.findById(id);
+        if (optionalStudent.isPresent()){
+            StudentEntity existingStudentEntity = optionalStudent.get();
+            existingStudentEntity.setName(studentDto.getName());
+            existingStudentEntity.setAge(studentDto.getAge());
+            existingStudentEntity.setContact(studentDto.getContact());
+            existingStudentEntity.setGuardianName(studentDto.getGuardianName());
+            existingStudentEntity.setAddress(studentDto.getAddress());
+            existingStudentEntity.setGuardianContact(studentDto.getGuardianContact());
+
+
+            StudentEntity saved = repository.save(existingStudentEntity);
+            return mapper.convertValue(saved,StudentDto.class);
+
+        }
+        return null;
+    }
 }
