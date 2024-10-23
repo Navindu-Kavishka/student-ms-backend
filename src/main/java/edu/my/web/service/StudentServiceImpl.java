@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.my.web.dto.StudentDto;
 import edu.my.web.entity.StudentEntity;
 import edu.my.web.repository.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void deleteById(Integer id) {
+        if (!repository.existsById(id)){
+            throw  new EntityNotFoundException("Student Not Found...");
+        }
         repository.deleteById(id);
     }
 
@@ -36,5 +40,7 @@ public class StudentServiceImpl implements StudentService{
         });
         return allStudents;
     }
+
+
 
 }
