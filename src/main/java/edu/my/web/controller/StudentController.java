@@ -23,6 +23,9 @@ public class StudentController {
         service.deleteById(id);
     }
 
-
+    @GetMapping("/all")
+    List<StudentDto> getAll(){
+        return service.getAll();
+    }
 
 }
